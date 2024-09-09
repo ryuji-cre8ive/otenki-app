@@ -49,11 +49,20 @@ export default function Home() {
   const config = {
     data: weatherData.hourly.time.map((time, index) => ({
       time,
-      temperature2m: weatherData.hourly.temperature2m[index],
+      temperature2m: Number(weatherData.hourly.temperature2m[index].toFixed(1)),
     })),
     height: 400,
     xField: "time",
     yField: "temperature2m",
+    yAxis: {
+      title: {
+        text: "気温 (°C)",
+      },
+      min: Math.floor(
+        Math.min(...Array.from(weatherData.hourly.temperature2m))
+      ),
+      max: Math.ceil(Math.max(...Array.from(weatherData.hourly.temperature2m))),
+    },
   };
 
   return (
